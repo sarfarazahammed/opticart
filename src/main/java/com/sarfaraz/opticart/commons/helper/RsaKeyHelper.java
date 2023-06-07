@@ -13,6 +13,7 @@ public class RsaKeyHelper {
     private RsaKeyHelper() {
         throw new IllegalStateException("Helper Class");
     }
+
     public static RSAPublicKey getPublicKey(RSAPrivateKey privateKey) throws Exception {
         RSAPrivateCrtKey rsaPrivateKey = (RSAPrivateCrtKey) privateKey;
         return (RSAPublicKey) KeyFactory.getInstance("RSA").generatePublic(new RSAPublicKeySpec(rsaPrivateKey.getModulus(), rsaPrivateKey.getPublicExponent()));

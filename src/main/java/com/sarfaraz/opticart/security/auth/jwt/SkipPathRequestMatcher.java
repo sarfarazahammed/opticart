@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SkipPathRequestMatcher implements RequestMatcher {
-    private OrRequestMatcher matchers;
+    private final OrRequestMatcher matchers;
 
     public SkipPathRequestMatcher(String[] pathsToSkip) {
         Assert.noNullElements(pathsToSkip, "Skip list must one element to enter into app");

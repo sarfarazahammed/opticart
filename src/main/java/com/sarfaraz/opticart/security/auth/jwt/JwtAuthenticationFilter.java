@@ -47,7 +47,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
         try {
             String bearerToken = tokenExtractor.extract(request.getHeader(JWT_TOKEN_HEADER_PARAM));
             return getAuthenticationManager().authenticate(new JwtAuthenticationToken(JwtUtil.validateToken(bearerToken, jwtProperties)));
-        }catch (JwtException ex) {
+        } catch (JwtException ex) {
             log.error("Exception in JWT: {}", ex.getMessage());
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             response.setContentType("application/json");
@@ -65,7 +65,6 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
         return null;
 
     }
-
 
 
     @Override
