@@ -6,16 +6,16 @@ import com.sarfaraz.opticart.security.dto.AuthTokenDto;
 import com.sarfaraz.opticart.security.enums.TokenType;
 
 public interface TokenService {
-    public boolean isValidAccessToken(String accessToken);
+    boolean isValidAccessToken(String accessToken);
 
-    public boolean isValidRefreshToken(String refreshToken);
+    boolean isValidRefreshToken(String refreshToken);
 
-    public void updateTokensByRefreshToken(AccessToken accessToken, RefreshToken refreshToken, String oldRefreshToken);
+    void updateTokensByRefreshToken(AccessToken accessToken, RefreshToken refreshToken, String oldRefreshToken);
 
-    public AuthTokenDto saveTokens(AccessToken accessToken, RefreshToken refreshToken, TokenType tokenType, String userId);
+    AuthTokenDto saveTokens(AccessToken accessToken, RefreshToken refreshToken, TokenType tokenType, String userId);
 
-    public boolean deleteByUserId(String userId);
+    boolean deleteByUserId(String userId);
 
-    public boolean deleteByAccessToken(String accessToken);
+    boolean deleteByAccessToken(String accessToken);
 
 }

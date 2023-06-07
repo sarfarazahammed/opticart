@@ -5,6 +5,7 @@ public class JwtAuthSkipUrls {
     private JwtAuthSkipUrls() {
         throw new IllegalStateException("Constants class");
     }
+
     public static final String HEALTHZ = "/healthz";
     public static final String READY = "/ready";
     public static final String SIGNUP = "/api/v1/auth/signup";

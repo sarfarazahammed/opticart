@@ -113,6 +113,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean removeRoleFromUser(UserRole role, String userId) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new IllegalArgumentException(USER_NOT_FOUND.name()));
+        if (user.getRoles().removeIf(role1 -> role1.getName().equals(role.name()))) {
+            userRepo.save(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public boolean existsById(String userId) {
         return userRepo.existsById(userId);
     }

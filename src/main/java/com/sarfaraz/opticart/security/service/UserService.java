@@ -19,6 +19,8 @@ public interface UserService {
 
     boolean assignRole(UserRole role, String userId);
 
+    boolean removeRoleFromUser(UserRole role, String userId);
+
     boolean existsById(String userId);
 
     ImmutableSet<String> getPermissions(String userId);

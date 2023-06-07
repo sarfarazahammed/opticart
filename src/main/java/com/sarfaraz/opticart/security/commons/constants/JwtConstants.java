@@ -2,9 +2,10 @@ package com.sarfaraz.opticart.security.commons.constants;
 
 public class JwtConstants {
 
-    private JwtConstants(){
+    private JwtConstants() {
         throw new IllegalStateException("Constants class");
     }
+
     public static final String JWT_PROPERTIES_PREFIX = "jwt";
     public static final String JWT_TOKEN_HEADER_PARAM = "X-Auth";
     public static final String JWT_REFRESH_TOKEN_HEADER_PARAM = "X-Auth-Refresh";
