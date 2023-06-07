@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Use shutdownHook so that we can close gracefully and finish the log drain -->
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>
+                {
+                "appName":"${APPLICATION_NAME}",
+                "appVersion":"${APPLICATION_VERSION}",
+                "appCommitVersion":"${APPLICATION_COMMIT_VERSION}",
+                "appNamespace":"${APPLICATION_NAMESPACE}"
+                }
+            </customFields>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="jsonConsoleAppender"/>
+    </root>
+</configuration>

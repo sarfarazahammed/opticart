@@ -1,0 +1,40 @@
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: TRACE
+jwt:
+  privateKeyStr: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCPE7YQMSxPbgnQ3N+Fyc/Lb6rF0EH6GDDVfvsIsQ4nXRLh5RTdBMCrE8MMKEd2GS75I67bWizVkGmyMvtJs7Zf348xufu+6JYYUx1rMfF/oMURnJVDeOcqVSCG9Zo9PrRthH4f82FiMNTBzm/crNrQbny0cTD9M0S4084D3pz4848Fa1O3rX3IZdnUNiU2cEGEMWmaO66PZilIVvsxYdVFPUVKWW4PdtwkYFhr2EEOyHLf6+8GZt8r8ZOZT31ZdXe/7/W9hWjkrQ2jMOnXOS2SgAlPl2mtkZG9oMQp/46WavoZvoSoWRYyx26neZ04rtw4M/S2Zl7FxUqxejvA9V//AgMIAEECggEABjSH1LHr3wkJFFURYFHHcoXSVFXYZR13TddQqMwHjAyF+AsW/q/bkQup0OsdTDOyPy7wfBp/1sg5lNKAKzvj4FrU5WXB7jsJw/iBpW0LXD2BHIenhLs/8HTtykKLjx5ljz9pb8Tbv795hLkwhjN+ftLmZ+kVGs4PnrfpSzA03hg+WnCtCb0GSh6eKr5csbiTw+wsYp0sCHFWqtg9PbofmPEJ4kVWKYbPTiGL4NyNq3l/V3X9M6KqKgAa7Bw6m6L28MZZG/BdR7CpQZNrkJWyN6XCEsWBalFhtrOh+Aezs/4B0DOWZdapBQHR8c8VwEI8hJneaZJDtt7B8NSR9CvZiQKBgQDBuMMHOgubF58/INm+ijxXqPuoODhSoT5u6NQ7xPsW6f0myL2BqWg4q+MejnwLCnu7vwgUCxJBFe1xz7w7ZMIyhK2twLaL8V8Xba40vUkz1pTL3nBGY+o4frMG4IhQKEk3NTS2Oo0bFrgbgrKlcImgRktRGVk9ClGxNT7D52NuVQKBgQC9EudftWSb6+mc6sWOS2qRPaFUJBUkwCjxRvG5HYPDpB3iCUd7+NQMbNMIllrsdB90cMrV4Mf/NfVYwm3qyqnLAH9K5s+3MQLPTC607r2I67nenhgAvB3K7XGokdIG0xPy3r7qKBRS0JUMgdnUDllBDcNrLj9f00FHZikCxSnBAwKBgE72REczy/WVnTI2uCsre0FKP3CjTO4FL7mCfH10jPExhhmZkfodC0Grw4vwcGlOY80hqLVx86iG2zKZ/jaMU1LDVBqLGXhcOPCOOpohfAr3GvNjQYJLqTTeP8Ux7rfqn+tzQmckVx3EyHlRJUhwlHXtHb47Md8UFAOA6lFcavqVAoGAc/+u4ljJzhQyT2N4d4CTSrllntsJFYbpNwR8xPPP4E3wrLHea24gnWa3CjGurnJm+1mK/XpEtbXDScd1JPzVcHz4I4FG8TL2z0SWi1VgzhS4/607ss5gKvocER6OGlVlw6a+0bZ3rdP/WdXi0j5xoINNwSf7Fd/5zhWQsq92MQECgYBFoELeYeZzp02iLx6ZuDpUgj0RQLdav6vBhDEAiuZoxkDFGB3M7DRxHwMhHAtFwUL30a8gVwHtvbgNlDgGRVv7b4gw4s3S+aV3L8S/t89a1FCNXyMRyUU2M2epsgXfhvwo0oCTlDqtlIaTG7uOI05GHMWDrfL9AcZUAF2Y/vHaPQ==
+  tokenExpirationSeconds: 900
+  refreshTokenExpSeconds: 900000
+  recoveryOtpExpSeconds: 300
+  tokenIssuer: opticart:jwt
+  activeTokenType: BEARER
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:postgresql://localhost:5432/opticart?currentSchema=app
+    username: postgres
+    password: postgres
+  flyway:
+    locations: classpath:db/migration
+    outOfOrder: true
+    ignore-migration-patterns:
+      - "*:missing"
+app:
+  trace: false
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+    include-exception: false
+  servlet:
+    context-path: "/opticart"
+  port: 8081

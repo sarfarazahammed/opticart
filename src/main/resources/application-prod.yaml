@@ -1,0 +1,37 @@
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+jwt:
+  privateKeyStr: ${PRIVATE_KEY}
+  tokenExpirationSeconds: ${TOKEN_EXPIRATION_SEC}
+  refreshTokenExpSeconds: ${REFRESH_TOKEN_EXPIRATION_SEC}
+  recoveryOtpExpSeconds:  ${RECOVERY_OTP_EXPIRATION_SEC}
+  tokenIssuer:  ${TOKEN_ISSUER}
+  activeTokenType:  ${ACTIVE_TOKEN_TYPE}
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: false
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+app:
+  trace: false
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+    include-exception: false
+  servlet:
+    context-path: "/opticart"
+  port: 8081
+
+
