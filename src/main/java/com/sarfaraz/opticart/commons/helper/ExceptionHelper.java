@@ -28,7 +28,7 @@ public class ExceptionHelper {
     }
 
     public ExceptionResponseDto getErrorResponse(HttpServletRequest request, Exception ex, HttpStatus status) {
-        ExceptionResponseDto errorResponse = new ExceptionResponseDto(status, ex.getMessage());
+        ExceptionResponseDto errorResponse = new ExceptionResponseDto(status, ex.getMessage(), ex.getClass().getSimpleName());
         if (printStackTrace && isTraceOn(request)) {
             errorResponse.setStackTrace(ExceptionUtils.getStackTrace(ex));
         }
@@ -36,7 +36,7 @@ public class ExceptionHelper {
     }
 
     public ExceptionResponseDto getErrorResponse(HttpServletRequest request, Exception ex, String message, HttpStatus status) {
-        ExceptionResponseDto errorResponse = new ExceptionResponseDto(status, message);
+        ExceptionResponseDto errorResponse = new ExceptionResponseDto(status, message, ex.getClass().getSimpleName());
         if (printStackTrace && isTraceOn(request)) {
             errorResponse.setStackTrace(ExceptionUtils.getStackTrace(ex));
         }

@@ -5,6 +5,7 @@ import com.sarfaraz.opticart.commons.helper.ExceptionHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -28,6 +29,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionResponseDto> handleValidationErrors(Exception exception, HttpServletRequest request) {
         return ResponseEntity.badRequest().body(exceptionHelper.getErrorResponse(request, exception, HttpStatus.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<ExceptionResponseDto> handleAccessDeniedException(Exception exception, HttpServletRequest request) {
+        return new ResponseEntity<>(exceptionHelper.getErrorResponse(request, exception, HttpStatus.UNAUTHORIZED), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Exception.class)

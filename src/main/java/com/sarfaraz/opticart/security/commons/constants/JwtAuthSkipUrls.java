@@ -2,10 +2,6 @@ package com.sarfaraz.opticart.security.commons.constants;
 
 public class JwtAuthSkipUrls {
 
-    private JwtAuthSkipUrls() {
-        throw new IllegalStateException("Constants class");
-    }
-
     public static final String HEALTHZ = "/healthz";
     public static final String READY = "/ready";
     public static final String SIGNUP = "/api/v1/auth/signup";
@@ -15,5 +11,8 @@ public class JwtAuthSkipUrls {
     public static final String PASSWORD_RECOVERY = "/api/v1/auth/password/recovery";
     public static final String PASSWORD_RECOVERY_CODE_VALIDATE = "/api/v1/auth/password/recovery/validate";
     public static final String PASSWORD_CHANGE = "/api/v1/auth/password/change";
+    private JwtAuthSkipUrls() {
+        throw new IllegalStateException("Constants class");
+    }
 
 }

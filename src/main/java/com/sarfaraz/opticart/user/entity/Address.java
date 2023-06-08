@@ -1,6 +1,7 @@
-package com.sarfaraz.opticart.security.entity;
+package com.sarfaraz.opticart.user.entity;
 
 import com.sarfaraz.opticart.commons.domain.VersionedEntity;
+import com.sarfaraz.opticart.security.entity.User;
 import com.sarfaraz.opticart.security.enums.AddressTag;
 import lombok.*;
 
@@ -12,18 +13,19 @@ import javax.persistence.*;
 @ToString(exclude = "user")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Table(name = "address", schema = "app")
 public class Address extends VersionedEntity {
     @Id
     private String id;
-
+    private String name;
+    private String countryCallingCode;
+    private String phoneNumber;
     private String address;
     private String city;
     private String state;
     private String country;
     private String zipcode;
-    private Boolean isDefault;
+    private boolean isDefault;
     @Enumerated(EnumType.STRING)
     private AddressTag tag;
     @ManyToOne(fetch = FetchType.LAZY)
