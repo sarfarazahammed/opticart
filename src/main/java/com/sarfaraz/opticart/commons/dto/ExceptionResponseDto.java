@@ -16,6 +16,7 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ExceptionResponseDto extends ResponseDto {
 
+    private String exceptionName;
     private String stackTrace;
     private List<ValidationError> errors;
 
@@ -26,6 +27,11 @@ public class ExceptionResponseDto extends ResponseDto {
 
     public ExceptionResponseDto(HttpStatus status, String message) {
         super(status, message);
+    }
+
+    public ExceptionResponseDto(HttpStatus status, String message, String exceptionName) {
+        super(status, message);
+        this.exceptionName = exceptionName;
     }
 
     public void addValidationError(String field, String message) {

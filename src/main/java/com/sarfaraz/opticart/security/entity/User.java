@@ -3,6 +3,7 @@ package com.sarfaraz.opticart.security.entity;
 import com.google.common.collect.ImmutableSet;
 import com.sarfaraz.opticart.commons.domain.AuditableEntity;
 import com.sarfaraz.opticart.security.enums.UserState;
+import com.sarfaraz.opticart.user.entity.Address;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,7 +41,7 @@ public class User extends AuditableEntity {
     @Column(name = "state")
     private UserState state;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Address> addresses = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -52,6 +53,10 @@ public class User extends AuditableEntity {
 
     public void assignRole(Role role) {
         this.roles.add(role);
+    }
+
+    public void addAddress(Address address) {
+        this.addresses.add(address);
     }
 
     public ImmutableSet<String> getAuthorities() {

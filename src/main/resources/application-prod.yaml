@@ -7,9 +7,9 @@ jwt:
   privateKeyStr: ${PRIVATE_KEY}
   tokenExpirationSeconds: ${TOKEN_EXPIRATION_SEC}
   refreshTokenExpSeconds: ${REFRESH_TOKEN_EXPIRATION_SEC}
-  recoveryOtpExpSeconds:  ${RECOVERY_OTP_EXPIRATION_SEC}
-  tokenIssuer:  ${TOKEN_ISSUER}
-  activeTokenType:  ${ACTIVE_TOKEN_TYPE}
+  recoveryOtpExpSeconds: ${RECOVERY_OTP_EXPIRATION_SEC}
+  tokenIssuer: ${TOKEN_ISSUER}
+  activeTokenType: ${ACTIVE_TOKEN_TYPE}
 spring:
   jpa:
     properties:
