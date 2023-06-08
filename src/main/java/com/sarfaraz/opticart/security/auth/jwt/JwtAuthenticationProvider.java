@@ -40,13 +40,13 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
         List<GrantedAuthority> authorities =
                 jwtFacade.
-                        getPermissions(jwtUser.getUserId()).
+                        getAuthorities(jwtUser.getUserId()).
                         stream().
                         map(SimpleGrantedAuthority::new).
                         collect(Collectors.toList());
 
         if (CollectionUtils.isEmpty(authorities)) {
-            throw new InsufficientAuthenticationException("User doesn't have permissions to proceed");
+            throw new InsufficientAuthenticationException("User doesn't have authorities to proceed");
         }
 
         AppUserContext context = new AppUserContext(jwtUser.getUserId(), authorities);

@@ -54,10 +54,15 @@ public class User extends AuditableEntity {
         this.roles.add(role);
     }
 
-    public ImmutableSet<String> getPermissions() {
+    public ImmutableSet<String> getAuthorities() {
         return this.roles
                 .stream()
-                .flatMap(role -> role.getPermissions().stream().map(Permission::getName)).collect(collectingAndThen(toSet(), ImmutableSet::copyOf));
+                .flatMap(role -> {
+                    Set<String> authorities = role.getPermissions().stream().map(Permission::getName).collect(toSet());
+                    authorities.add(role.getName());
+                    return authorities.stream();
+                })
+                .collect(collectingAndThen(toSet(), ImmutableSet::copyOf));
     }
 
 }

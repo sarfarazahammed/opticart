@@ -23,7 +23,7 @@ public interface UserService {
 
     boolean existsById(String userId);
 
-    ImmutableSet<String> getPermissions(String userId);
+    ImmutableSet<String> getAuthorities(String userId);
 
     JwtUser authenticate(AuthRequestDto authRequestDto);
 
