@@ -65,8 +65,8 @@ public class JwtFacade {
     }
 
 
-    public ImmutableSet<String> getPermissions(String userId) {
-        return userService.getPermissions(userId);
+    public ImmutableSet<String> getAuthorities(String userId) {
+        return userService.getAuthorities(userId);
     }
 
     public AuthTokenDto getTokens(JwtUser jwtUser) {

@@ -129,9 +129,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ImmutableSet<String> getPermissions(String userId) {
+    public ImmutableSet<String> getAuthorities(String userId) {
         User user = userRepo.findById(userId).orElseThrow(() -> new IllegalArgumentException(USER_NOT_FOUND.name()));
-        return user.getPermissions();
+        return user.getAuthorities();
     }
 
     @Override
