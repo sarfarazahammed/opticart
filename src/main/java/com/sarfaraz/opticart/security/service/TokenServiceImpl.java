@@ -31,6 +31,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
+    @Transactional
     public void updateTokensByRefreshToken(AccessToken accessToken, RefreshToken refreshToken, String oldRefreshToken) {
         Token token = tokenRepo.findByRefreshToken(oldRefreshToken);
         if (token == null) throw new IllegalStateException("Invalid Refresh Token");
@@ -38,9 +39,11 @@ public class TokenServiceImpl implements TokenService {
         token.setRefreshToken(refreshToken.getToken());
         token.setAccessExpirationTime(accessToken.getExpirationTime());
         token.setRefreshExpirationTime(refreshToken.getExpirationTime());
+        tokenRepo.save(token);
     }
 
     @Override
+    @Transactional
     public AuthTokenDto saveTokens(AccessToken accessToken, RefreshToken refreshToken, TokenType tokenType, String userId) {
         tokenRepo.save(Token.builder()
                 .id(UUID.randomUUID().toString())
