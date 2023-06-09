@@ -8,6 +8,7 @@ import com.sarfaraz.opticart.security.commons.JwtUtil;
 import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
@@ -50,14 +51,20 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
         } catch (JwtException ex) {
             log.error("Exception in JWT: {}", ex.getMessage());
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setContentType("application/json");
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             ObjectMapper objectMapper = new ObjectMapper();
             String errorResponse = objectMapper.writeValueAsString(exceptionHelper.getErrorResponse(request, ex, HttpStatus.BAD_REQUEST));
+            response.getWriter().write(errorResponse);
+        } catch (AuthenticationException ex) {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            ObjectMapper objectMapper = new ObjectMapper();
+            String errorResponse = objectMapper.writeValueAsString(exceptionHelper.getErrorResponse(request, ex, HttpStatus.UNAUTHORIZED));
             response.getWriter().write(errorResponse);
         } catch (Exception ex) {
             log.error("Unhandled exception: {}", ex.getMessage());
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            response.setContentType("application/json");
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             ObjectMapper objectMapper = new ObjectMapper();
             String errorResponse = objectMapper.writeValueAsString(exceptionHelper.getErrorResponse(request, ex, HttpStatus.INTERNAL_SERVER_ERROR));
             response.getWriter().write(errorResponse);

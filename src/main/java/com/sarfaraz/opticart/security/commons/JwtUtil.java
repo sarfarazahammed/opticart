@@ -24,29 +24,34 @@ public class JwtUtil {
     public static AccessToken generateToken(JwtUser jwtUser, JwtProperties jwtProperties) {
         Instant now = Instant.now();
         Instant expireTime = now.plusSeconds(jwtProperties.getTokenExpirationSeconds().getSeconds());
-        jwtUser.getUnmodifiableScopes().add(ROLE_ACCESS_TOKEN);
+        Set<String> unmodifiableScopes = new HashSet<>(jwtUser.getUnmodifiableScopes());
+        unmodifiableScopes.remove(ROLE_REFRESH_TOKEN);
+        unmodifiableScopes.add(ROLE_ACCESS_TOKEN);
 
         Claims claims = Jwts.claims().setSubject(jwtUser.getUserId());
-        claims.put(SCOPES_KEY_NAME, jwtUser.getUnmodifiableScopes());
+        claims.put(SCOPES_KEY_NAME, unmodifiableScopes);
+        String compact = Jwts.builder()
+                .setClaims(claims)
+                .setIssuer(jwtProperties.getTokenIssuer())
+                .setSubject(jwtUser.getUserId())
+                .setIssuedAt(Date.from(now))
+                .setExpiration(Date.from(expireTime))
+                .signWith(SignatureAlgorithm.RS512, jwtProperties.getPrivateKey())
+                .compact();
         return new AccessToken(
-                Jwts.builder()
-                        .setClaims(claims)
-                        .setIssuer(jwtProperties.getTokenIssuer())
-                        .setSubject(jwtUser.getUserId())
-                        .setIssuedAt(Date.from(now))
-                        .setExpiration(Date.from(expireTime))
-                        .signWith(SignatureAlgorithm.RS512, jwtProperties.getPrivateKey())
-                        .compact(),
+                compact,
                 LocalDateTime.ofInstant(expireTime, ZoneId.of("UTC")));
     }
 
     public static RefreshToken generateRefreshToken(JwtUser jwtUser, JwtProperties jwtProperties) {
         Instant now = Instant.now();
         Instant expireTime = now.plusSeconds(jwtProperties.getRefreshTokenExpSeconds().getSeconds());
-        jwtUser.getUnmodifiableScopes().add(ROLE_REFRESH_TOKEN);
+        Set<String> unmodifiableScopes = new HashSet<>(jwtUser.getUnmodifiableScopes());
+        unmodifiableScopes.remove(ROLE_ACCESS_TOKEN);
+        unmodifiableScopes.add(ROLE_REFRESH_TOKEN);
 
         Claims claims = Jwts.claims().setSubject(jwtUser.getUserId());
-        claims.put(SCOPES_KEY_NAME, jwtUser.getUnmodifiableScopes());
+        claims.put(SCOPES_KEY_NAME, unmodifiableScopes);
 
         return new RefreshToken(
                 Jwts.builder()
