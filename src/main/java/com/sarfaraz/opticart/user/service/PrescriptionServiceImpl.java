@@ -156,7 +156,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public PrescriptionTypeDto addPrescriptionType(PrescriptionTypeDto prescriptionTypeDto) {
         if (prescriptionTypeDto == null) return null;
         PrescriptionType prescriptionType = prescriptionTypeConverter.convertToEntity(prescriptionTypeDto);
-        prescriptionTypeRepo.save(prescriptionType);
+        prescriptionType = prescriptionTypeRepo.save(prescriptionType);
         return prescriptionTypeConverter.convertToDto(prescriptionType);
     }
 
@@ -165,7 +165,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public PrescriptionTypeDto updatePrescriptionType(PrescriptionTypeDto prescriptionTypeDto) {
         PrescriptionType prescriptionType = prescriptionTypeRepo.findById(prescriptionTypeDto.getId()).orElseThrow(() -> new IllegalArgumentException("Prescription type not found"));
         prescriptionTypeConverter.convertToEntity(prescriptionTypeDto, prescriptionType);
-        prescriptionTypeRepo.save(prescriptionType);
+        prescriptionType = prescriptionTypeRepo.save(prescriptionType);
         return prescriptionTypeConverter.convertToDto(prescriptionType);
     }
 }

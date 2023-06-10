@@ -26,39 +26,6 @@ public class PrescriptionController {
         this.prescriptionService = prescriptionService;
     }
 
-    @GetMapping("type/all")
-    public ResponseDto listAllTypes() {
-
-        return SuccessResponseDto.builder()
-                .code(HttpStatus.OK)
-                .message("Prescription Types fetched Successfully")
-                .data(prescriptionService.getAllPrescriptionTypes()).build();
-    }
-
-    @GetMapping("type")
-    public ResponseDto getType(@RequestParam("id") String id) {
-        return SuccessResponseDto.builder()
-                .code(HttpStatus.OK)
-                .message("Prescription Type fetched Successfully")
-                .data(prescriptionService.getPrescriptionType(id)).build();
-    }
-
-    @PostMapping("type")
-    public ResponseDto addype(@RequestBody PrescriptionTypeDto prescriptionTypeDto) {
-        return SuccessResponseDto.builder()
-                .code(HttpStatus.OK)
-                .message("Prescription Type added Successfully")
-                .data(prescriptionService.addPrescriptionType(prescriptionTypeDto)).build();
-    }
-
-    @PutMapping("type")
-    public ResponseDto updateType(@RequestBody PrescriptionTypeDto prescriptionTypeDto) {
-        return SuccessResponseDto.builder()
-                .code(HttpStatus.OK)
-                .message("Prescription Type updated Successfully")
-                .data(prescriptionService.updatePrescriptionType(prescriptionTypeDto)).build();
-    }
-
     @GetMapping("list/all")
     public ResponseDto listAllMembers() throws UserNotFoundException {
         String userId = jwtFacade.getMyUserId();
