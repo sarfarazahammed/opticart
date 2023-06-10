@@ -11,6 +11,7 @@ public class JwtAuthSkipUrls {
     public static final String PASSWORD_RECOVERY = "/api/v1/auth/password/recovery";
     public static final String PASSWORD_RECOVERY_CODE_VALIDATE = "/api/v1/auth/password/recovery/validate";
     public static final String PASSWORD_CHANGE = "/api/v1/auth/password/change";
+
     private JwtAuthSkipUrls() {
         throw new IllegalStateException("Constants class");
     }

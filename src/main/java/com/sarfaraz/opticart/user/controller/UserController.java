@@ -48,7 +48,7 @@ public class UserController {
                 .data(userDetailsService.getUser(userId)).build();
     }
 
-    @PostMapping("")
+    @PutMapping("")
     @PreAuthorize("isAuthenticated()")
     public ResponseDto updateUser(@RequestBody UserDetailsDto userDetailsDto) throws UserNotFoundException, UserAlreadyExistsException {
         String userId = jwtFacade.getMyUserId();
