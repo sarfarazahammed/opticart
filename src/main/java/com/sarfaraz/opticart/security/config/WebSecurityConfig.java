@@ -8,6 +8,7 @@ import com.sarfaraz.opticart.security.commons.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,6 +19,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.util.Assert;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.sarfaraz.opticart.security.commons.constants.JwtAuthSkipUrls.*;
 
@@ -33,7 +41,8 @@ public class WebSecurityConfig {
     private final AuthenticationProvider jwtAuthenticationProvider;
     private final ExceptionHelper exceptionHelper;
 
-    private final String[] pathsToSkip = {SIGNUP, SIGNUP_VALIDATE, TOKENS, TOKENS_REFRESH, PASSWORD_RECOVERY, PASSWORD_RECOVERY_CODE_VALIDATE, PASSWORD_CHANGE, READY, HEALTHZ};
+    private final String[] pathsToSkip = {SIGNUP, SIGNUP_VALIDATE, TOKENS, TOKENS_REFRESH, PASSWORD_RECOVERY,
+            PASSWORD_RECOVERY_CODE_VALIDATE, PASSWORD_CHANGE, READY, HEALTHZ};
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
@@ -49,8 +58,8 @@ public class WebSecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers(pathsToSkip)
-                .permitAll()
+                .antMatchers(pathsToSkip).permitAll()
+                .antMatchers(HttpMethod.GET, PRESCRIPTION_TYPE).permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -61,8 +70,10 @@ public class WebSecurityConfig {
     }
 
     private JwtAuthenticationFilter buildJwtTokenAuthenticationProcessingFilter(AuthenticationManager authenticationManager) {
-
-        SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(pathsToSkip);
+        Assert.noNullElements(pathsToSkip, "Skip list must one element to enter into app");
+        List<RequestMatcher> m = Arrays.stream(pathsToSkip).map(AntPathRequestMatcher::new).collect(Collectors.toList());
+        m.add(new AntPathRequestMatcher(PRESCRIPTION_TYPE, HttpMethod.GET.name()));
+        SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(m);
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(tokenExtractor, jwtProperties, matcher, exceptionHelper);
         jwtAuthenticationFilter.setAuthenticationManager(authenticationManager);
         return jwtAuthenticationFilter;

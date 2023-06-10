@@ -1,5 +1,6 @@
 package com.sarfaraz.opticart.commons.domain;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @MappedSuperclass
+@Getter
 @Setter
 public abstract class AuditableEntity implements Serializable {
 

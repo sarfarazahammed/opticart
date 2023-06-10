@@ -8,6 +8,7 @@ public class JwtConstants {
     public static final String SCOPES_KEY_NAME = "scopes";
     public static final String ROLE_ACCESS_TOKEN = "ROLE_ACCESS_TOKEN";
     public static final String ROLE_REFRESH_TOKEN = "ROLE_REFRESH_TOKEN";
+
     private JwtConstants() {
         throw new IllegalStateException("Constants class");
     }
