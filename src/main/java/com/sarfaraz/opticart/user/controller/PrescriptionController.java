@@ -53,7 +53,6 @@ public class PrescriptionController {
 
     @PutMapping("type")
     public ResponseDto updateType(@RequestBody PrescriptionTypeDto prescriptionTypeDto) {
-        String userId = jwtFacade.getMyUserId();
         return SuccessResponseDto.builder()
                 .code(HttpStatus.OK)
                 .message("Prescription Type updated Successfully")
@@ -79,7 +78,7 @@ public class PrescriptionController {
     }
 
     @PostMapping("")
-    public ResponseDto addPrescription(@RequestBody PrescriptionDto prescriptionDto, @RequestParam("memberId") String memberId) throws UserNotFoundException {
+    public ResponseDto addPrescription(@RequestBody PrescriptionDto prescriptionDto, @RequestParam("memberId") String memberId) {
         String userId = jwtFacade.getMyUserId();
         return SuccessResponseDto.builder()
                 .code(HttpStatus.OK)
@@ -108,7 +107,6 @@ public class PrescriptionController {
 
     @GetMapping("member")
     public ResponseDto getMember(@RequestParam("id") String id) {
-        String userId = jwtFacade.getMyUserId();
         return SuccessResponseDto.builder()
                 .code(HttpStatus.OK)
                 .message("Member added Successfully")

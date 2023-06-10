@@ -86,7 +86,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                         collect(Collectors.toSet())
         );
         member.setUser(user);
-        return memberConverter.convertToDto(memberRepo.save(member));
+        MemberDto newMemberDto = memberConverter.convertToDto(memberRepo.save(member));
+        newMemberDto.setPrescriptions(member.getPrescriptions().stream().map(prescriptionConverter::convertToDto).collect(Collectors.toSet()));
+        return newMemberDto;
     }
 
     @Override
@@ -95,6 +97,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         Member member = memberRepo.findByIdAndUserId(memberId, userId).orElseThrow(() -> new IllegalArgumentException("Prescriptions not found"));
         Prescription prescription = prescriptionConverter.convertToEntity(prescriptionDto);
         member.getPrescriptions().add(prescription);
+        prescription.setMember(member);
         memberRepo.save(member);
         return prescriptionConverter.convertToDto(prescription);
     }
@@ -105,7 +108,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         Member member = memberRepo.findByIdAndUserId(memberDto.getId(), userId).orElseThrow(() -> new IllegalArgumentException("Prescriptions not found"));
         member = memberConverter.convertToEntity(memberDto, member);
         memberRepo.save(member);
-        return memberConverter.convertToDto(member);
+        MemberDto newMemberDto = memberConverter.convertToDto(memberRepo.save(member));
+        newMemberDto.setPrescriptions(member.getPrescriptions().stream().map(prescriptionConverter::convertToDto).collect(Collectors.toSet()));
+        return newMemberDto;
     }
 
     @Override

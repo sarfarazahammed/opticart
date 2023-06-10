@@ -32,6 +32,7 @@ public class PrescriptionConverter implements Converter<Prescription, Prescripti
                 .id(entity.getId())
                 .prescriptionTypeId(entity.getTypeId())
                 .power(powerConverter.convertToDto(entity.getPower()))
+                .createdDate(entity.getCreatedDate())
                 .build();
 
     }
