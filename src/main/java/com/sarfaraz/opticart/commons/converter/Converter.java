@@ -1,4 +1,4 @@
-package com.sarfaraz.opticart.user.converter;
+package com.sarfaraz.opticart.commons.converter;
 
 public interface Converter<S, T> {
     S convertToEntity(T dto);

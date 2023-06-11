@@ -1,5 +1,6 @@
 package com.sarfaraz.opticart.user.converter;
 
+import com.sarfaraz.opticart.commons.converter.Converter;
 import com.sarfaraz.opticart.user.dto.power.LeftEyePowerDto;
 import com.sarfaraz.opticart.user.dto.power.PowerDto;
 import com.sarfaraz.opticart.user.dto.power.PrismDto;
@@ -98,13 +99,11 @@ public class PowerConverter implements Converter<Power, PowerDto> {
 
     public Power convertToEntity(PowerDto dto, Power power) {
         if (dto == null) return null;
-        return Power.builder()
-                .id(dto.getId())
-                .leftEyePower(getPower(dto.getLeftEye()))
-                .rightEyePower(getPower(dto.getRightEye()))
-                .baseCurve(dto.getBaseCurve())
-                .diameter(dto.getDiameter())
-                .build();
+        power.setLeftEyePower(getPower(dto.getLeftEye()));
+        power.setRightEyePower(getPower(dto.getRightEye()));
+        power.setDiameter(dto.getDiameter());
+        power.setBaseCurve(dto.getBaseCurve());
+        return power;
     }
 
 }

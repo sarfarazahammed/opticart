@@ -1,5 +1,6 @@
 package com.sarfaraz.opticart.user.converter;
 
+import com.sarfaraz.opticart.commons.converter.Converter;
 import com.sarfaraz.opticart.user.dto.MemberDto;
 import com.sarfaraz.opticart.user.entity.Member;
 import org.springframework.stereotype.Component;

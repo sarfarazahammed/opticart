@@ -6,17 +6,17 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Data
 public abstract class TimeVersionedEntity extends AuditableEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start_time")
-    private Date startTime;
+    private LocalDateTime startTime;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "end_time")
-    private Date endTime;
+    private LocalDateTime endTime;
 
 }

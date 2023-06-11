@@ -60,6 +60,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .antMatchers(pathsToSkip).permitAll()
                 .antMatchers(HttpMethod.GET, PRESCRIPTION_TYPE).permitAll()
+                .antMatchers(HttpMethod.GET, LENS_INDEX).permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -73,6 +74,7 @@ public class WebSecurityConfig {
         Assert.noNullElements(pathsToSkip, "Skip list must one element to enter into app");
         List<RequestMatcher> m = Arrays.stream(pathsToSkip).map(AntPathRequestMatcher::new).collect(Collectors.toList());
         m.add(new AntPathRequestMatcher(PRESCRIPTION_TYPE, HttpMethod.GET.name()));
+        m.add(new AntPathRequestMatcher(LENS_INDEX, HttpMethod.GET.name()));
         SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(m);
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(tokenExtractor, jwtProperties, matcher, exceptionHelper);
         jwtAuthenticationFilter.setAuthenticationManager(authenticationManager);
