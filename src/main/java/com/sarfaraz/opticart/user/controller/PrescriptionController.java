@@ -7,7 +7,6 @@ import com.sarfaraz.opticart.security.auth.jwt.JwtFacade;
 import com.sarfaraz.opticart.security.exceptions.types.UserNotFoundException;
 import com.sarfaraz.opticart.user.dto.MemberDto;
 import com.sarfaraz.opticart.user.dto.PrescriptionDto;
-import com.sarfaraz.opticart.user.dto.PrescriptionTypeDto;
 import com.sarfaraz.opticart.user.service.PrescriptionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

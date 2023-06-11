@@ -1,5 +1,6 @@
 package com.sarfaraz.opticart.user.converter;
 
+import com.sarfaraz.opticart.commons.converter.Converter;
 import com.sarfaraz.opticart.user.dto.PrescriptionTypeDto;
 import com.sarfaraz.opticart.user.entity.PrescriptionType;
 import org.springframework.stereotype.Component;
